@@ -69,7 +69,7 @@ main{width:100%;max-width:780px;margin:0 auto;padding:12px 14px calc(100px + env
 </main>
 <button class="fab" id="fab">＋</button>
 <input type="file" id="fileInput" accept=".json,application/json" class="hidden">
-<div class="modal hidden" id="refModal"><div class="sheet"><h2 id="refModalTitle">Ajouter une référence</h2><div class="form">
+<div class="modal hidden" id="refModal"><div class="sheet"><h2 id="refModalTitle">Ajouter une référence</h2><div class="form"><input id="refId" type="hidden">
 <label>Titre<input id="rTitle" type="text" placeholder="Ex. SAAQ"></label>
 <label>Catégorie<select id="rCat"><option>Numéros</option><option>Articles</option><option>CSR</option><option>Constructeurs automobiles</option><option>Remorqueurs</option><option>Remisage / Saisie</option><option>Permis étrangers</option><option>Ressources</option><option>Autres</option></select></label>
 <label>Numéro de téléphone<input id="rPhone" type="tel" placeholder="450-555-1234"></label>
@@ -4542,19 +4542,19 @@ function openRef(id=null){
   $('refModal').classList.remove('hidden');
   $('refModalTitle').textContent=v?'Modifier une référence':'Ajouter une référence';
   $('refId').value=v?.id||'';
-  $('refTitle').value=v?.title||'';
-  $('refCat').value=v?.cat||'Numéros';
-  $('refPhone').value=v?.phone||'';
-  $('refBody').value=v?.body||'';
-  $('refSource').value=v?.source||'';
+  $('rTitle').value=v?.title||'';
+  $('rCat').value=v?.cat||'Numéros';
+  $('rPhone').value=v?.phone||'';
+  $('rBody').value=v?.body||'';
+  $('rSource').value=v?.source||'';
   $('deleteRef').style.display=v?'inline-block':'none';
 }
 function closeRefModal(){$('refModal').classList.add('hidden')}
 function saveCurrentRef(){
-  const title=$('refTitle').value.trim(),cat=$('refCat').value;
+  const title=$('rTitle').value.trim(),cat=$('rCat').value;
   if(!title){alert('Le titre est obligatoire.');return}
   const id=$('refId').value||('user-'+Date.now());
-  const obj={id,title,cat,phone:$('refPhone').value.trim(),body:$('refBody').value.trim(),source:$('refSource').value.trim()};
+  const obj={id,title,cat,phone:$('rPhone').value.trim(),body:$('rBody').value.trim(),source:$('rSource').value.trim()};
   const i=state.references.findIndex(r=>r.id===id);
   if(i>=0) state.references[i]={...state.references[i],...obj}; else state.references.push(obj);
   persist();closeRefModal();renderCats();renderRefs();
