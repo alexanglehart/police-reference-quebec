@@ -100,6 +100,37 @@ function phoneLink(p){return p?'<a class="phone" href="tel:'+p.replace(/[^0-9+]/
 function renderCats(){const counts={};state.references.forEach(r=>counts[r.cat]=(counts[r.cat]||0)+1);const order=["Numéros","Articles","CSR","Remorqueurs","Remisage / Saisie","Ressources","Autres","Constructeurs automobiles","Permis étrangers"];$('cats').innerHTML=order.filter(c=>counts[c]).map(c=>{const [e,n]=catMeta[c];return `<button class="cat" data-cat="${escAttr(c)}"><div class="emoji">${e}</div><h3>${n}</h3><div class="count">${counts[c]} référence${counts[c]>1?'s':''}</div></button>`}).join('');document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{selectedCat=b.dataset.cat;renderRefs();window.scrollTo({top:0,behavior:'smooth'})})}
 function renderRefs(){let arr=state.references.filter(r=>selectedCat==='all'||r.cat===selectedCat);if(searchTerm){const q=searchTerm.toLowerCase();arr=arr.filter(r=>JSON.stringify(r).toLowerCase().includes(q))} $('count').textContent='('+arr.length+')';$('listTitle').firstChild.textContent=selectedCat==='all'?'Références ':selectedCat+' ';$('refs').innerHTML=arr.map(r=>`<article class="item" data-ref-id="${escAttr(r.id)}"><div class="title">${esc(r.title)}</div><div class="meta">${esc(r.cat)}</div>${phoneLink(r.phone)}${r.body?'<div class="body">'+esc(r.body)+'</div>':''}<div class="ref-actions">${r.source?'<button class="btn" data-action="source">📚 Source</button>':''}<button class="btn" data-action="edit">✏️ Modifier</button><button class="btn danger" data-action="delete">🗑️ Supprimer</button></div></article>`).join('')||'<div class="empty">Aucun résultat.</div>'}
 function openSource(id){const x=state.references.find(y=>y.id===id);if(x?.source)window.open(x.source,'_blank','noopener')}
+
+function openRef(id=null){
+  const v=id?state.references.find(r=>r.id===id):null;
+  $('refModal').classList.remove('hidden');
+  $('refModalTitle').textContent=v?'Modifier une référence':'Ajouter une référence';
+  $('refId').value=v?.id||'';
+  $('refTitle').value=v?.title||'';
+  $('refCat').value=v?.cat||'Numéros';
+  $('refPhone').value=v?.phone||'';
+  $('refBody').value=v?.body||'';
+  $('refSource').value=v?.source||'';
+  $('deleteRef').style.display=v?'inline-block':'none';
+}
+function closeRefModal(){$('refModal').classList.add('hidden')}
+function saveCurrentRef(){
+  const title=$('refTitle').value.trim(),cat=$('refCat').value;
+  if(!title){alert('Le titre est obligatoire.');return}
+  const id=$('refId').value||('user-'+Date.now());
+  const obj={id,title,cat,phone:$('refPhone').value.trim(),body:$('refBody').value.trim(),source:$('refSource').value.trim()};
+  const i=state.references.findIndex(r=>r.id===id);
+  if(i>=0) state.references[i]={...state.references[i],...obj}; else state.references.push(obj);
+  persist();closeRefModal();renderCats();renderRefs();
+}
+function deleteCurrentRef(){
+  const id=$('refId').value;
+  if(!id)return;
+  const v=state.references.find(r=>r.id===id);
+  if(!v)return;
+  if(confirm('Supprimer cette référence ?')){state.references=state.references.filter(r=>r.id!==id);persist();closeRefModal();selectedCat='all';renderCats();renderRefs();}
+}
+
 function monthLabel(d){return d.toLocaleDateString('fr-CA',{month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase())}
 function labelType(t){return t==='jour'?'JOUR':t==='soir'?'SOIR':t==='nuit'?'NUIT':'CONGÉ'}
 function fmtDate(k){const d=new Date(k+'T12:00:00');return d.toLocaleDateString('fr-CA',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase())}
@@ -121,6 +152,17 @@ function togglePattern(){const box=$('patternBox');box.classList.toggle('hidden'
 function applyPattern(){const from=$('patternFrom').value,to=$('patternTo').value,rows=[...document.querySelectorAll('.pattern-row')];if(!from||!to||!rows.length){alert('Choisis une date de début, une date de fin et au moins un quart.');return}if(new Date(from)>new Date(to)){alert('La date de début doit être avant la date de fin.');return}const seq=rows.map(r=>({type:r.querySelector('.pType').value,start:r.querySelector('.pStart').value,end:r.querySelector('.pEnd').value}));let d=new Date(from+'T12:00:00'),end=new Date(to+'T12:00:00'),i=0;while(d<=end){const k=d.toISOString().slice(0,10);if(!state.calendar[k]||confirm('Le '+k+' contient déjà un horaire. Remplacer cette date ?'))state.calendar[k]={...seq[i%seq.length],note:state.calendar[k]?.note||''};d.setDate(d.getDate()+1);i++}persist();renderCalendar();alert('Horaire répétitif appliqué.')}
 function openRefs(){$('refsTab').classList.add('active');$('calTab').classList.remove('active');$('refsView').classList.remove('hidden');$('calView').classList.add('hidden')}
 function openCal(){$('calTab').classList.add('active');$('refsTab').classList.remove('active');$('calView').classList.remove('hidden');$('refsView').classList.add('hidden');renderCalendar()}
+$('refs').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-action]');
+  if(!btn)return;
+  const card=btn.closest('[data-ref-id]');
+  if(!card)return;
+  const id=card.dataset.refId,action=btn.dataset.action;
+  if(action==='edit')openRef(id);
+  else if(action==='delete')deleteRefById(id);
+  else if(action==='source')openSource(id);
+});
+function deleteRefById(id){$('refId').value=id;deleteCurrentRef()}
 $('search').oninput=e=>{searchTerm=e.target.value;renderRefs()};$('refsTab').onclick=openRefs;$('calTab').onclick=openCal;$('prevMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()-1);selectedDate=null;renderCalendar()};$('nextMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()+1);selectedDate=null;renderCalendar()};$('fab').onclick=()=>{if(!$('refsView').classList.contains('hidden'))openRef();else openDay(new Date().toISOString().slice(0,10))};$('addShift').onclick=()=>openDay(selectedDate||new Date().toISOString().slice(0,10));$('cancelModal').onclick=closeModal;$('saveDay').onclick=saveCurrentDay;$('deleteDay').onclick=deleteCurrentDay;$('cancelRefModal').onclick=closeRefModal;$('saveRef').onclick=saveCurrentRef;$('deleteRef').onclick=deleteCurrentRef;$('refModal').addEventListener('click',e=>{if(e.target===$('refModal'))closeRefModal()});$('patternBtn').onclick=togglePattern;$('addPatternRow').onclick=()=>addPatternRow();$('applyPattern').onclick=applyPattern;
 $('saveBtn').onclick=()=>{persist();const blob=new Blob([JSON.stringify({version:'V5.2',references:state.references,calendar:state.calendar,pattern:state.pattern},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Police_Reference_Quebec_sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
 $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
