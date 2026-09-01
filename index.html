@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-180.png">
+<title>Police Référence Québec</title>
+<style>
+:root{--bg:#f4f4f6;--card:#fff;--text:#171717;--muted:#6b7280;--line:#e5e7eb;--accent:#111}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:rgba(244,244,246,.96);backdrop-filter:blur(18px);padding:calc(env(safe-area-inset-top) + 12px) 14px 12px;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.brand{font-size:22px;font-weight:850}.version{font-size:11px;color:var(--muted)}
+.search{width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:16px;font-size:17px;background:#fff;outline:0}
+main{padding:14px 14px 100px;max-width:780px;margin:auto}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cat{border:0;border-radius:18px;background:#fff;padding:17px 14px;text-align:left;font-size:16px;font-weight:800;box-shadow:0 1px 5px #0000000b}.cat span{display:block;font-size:28px;margin-bottom:8px}
+.section{margin-top:20px}.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px}.section h2{font-size:18px;margin:0 0 8px}.smallbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;font-weight:700}
+.item{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;margin:9px 0}.title{font-size:17px;font-weight:850;line-height:1.25}.meta{font-size:12px;color:var(--muted);margin-top:5px}.body{white-space:pre-wrap;font-size:15px;line-height:1.48;margin-top:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.btn{border:1px solid var(--line);background:#fafafa;border-radius:11px;padding:9px 10px;font-weight:750}.btn.primary{background:#111;color:#fff;border-color:#111}.btn.danger{color:#b91c1c}.fab{position:fixed;right:17px;bottom:calc(17px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;border:0;background:#111;color:#fff;font-size:28px;box-shadow:0 6px 20px #0004}.empty{color:var(--muted);text-align:center;padding:30px 10px}.note{background:#fff8df;border:1px solid #ead89b;padding:11px 12px;border-radius:14px;font-size:13px;line-height:1.4;margin:12px 0}
+dialog{width:min(93vw,650px);border:0;border-radius:22px;padding:0;box-shadow:0 20px 60px #0005}dialog::backdrop{background:#0007}.modal{padding:20px}.modal h2{margin:0 0 15px}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:850;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;font-size:16px;background:#fff}.field textarea{min-height:130px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+
+.toolbar{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.toolbar button{white-space:nowrap}
+.status{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800;margin-top:6px}
+.status.ok{background:#e8f7ed;color:#176b35}.status.warn{background:#fff4d6;color:#7a5200}.status.note{background:#e9eefb;color:#27467c}
+.sourcebtn{border-color:#cfd8e3;background:#f7fbff}
+@media (min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+</head>
+<body>
+<header>
+ <div class="top"><div class="brand">🚔 Police Référence Québec</div><div class="version">V4 • référence</div></div>
+ <input id="search" class="search" placeholder="🔎 Rechercher article, numéro, mot-clé..." autocomplete="off">
+ <div class="toolbar" style="margin-top:9px">
+  <button class="smallbtn" id="verified">🟢 Vérifiés</button>
+  <button class="smallbtn" id="all">📚 Tout</button>
+  <button class="smallbtn" id="backup">💾 Sauvegarder</button>
+  <button class="smallbtn" id="restore">↩️ Importer</button>
+  <input id="file" type="file" accept=".json,application/json" hidden>
+ </div>
+</header>
+<main>
+ <div class="note">⚠️ <b>Outil de référence personnelle.</b> Les fiches « Vérifiées » ont été comparées aux sources officielles retrouvées. Les fiches « À vérifier » proviennent des notes/documents de départ et ne doivent pas être traitées comme une validation juridique. Le CSR officiel repéré est indiqué à jour au 1er janvier 2026.</div>
+ <div id="categories" class="grid">
+  <button class="cat" data-cat="Numéros"><span>📞</span>Numéros</button>
+  <button class="cat" data-cat="Articles"><span>⚖️</span>Articles</button>
+  <button class="cat" data-cat="CSR"><span>🚗</span>CSR</button>
+  <button class="cat" data-cat="Remorqueurs"><span>🚨</span>Remorqueurs</button>
+  <button class="cat" data-cat="Remisage / Saisie"><span>🚧</span>Remisage / Saisie</button>
+  <button class="cat" data-cat="Ressources"><span>🏥</span>Ressources</button>
+  <button class="cat" data-cat="Autres"><span>📋</span>Autres</button>
+ </div>
+ <div class="section">
+  <div class="sectionHead"><h2 id="sectionTitle">⭐ Favoris</h2><button class="smallbtn" id="reset">↺ Réinitialiser</button></div>
+  <div id="results"></div>
+ </div>
+</main>
+<button class="fab" id="add" aria-label="Ajouter">＋</button>
+
+<dialog id="dlg"><div class="modal">
+<h2 id="dlgTitle">Ajouter une référence</h2>
+<div class="field"><label>Titre</label><input id="fTitle"></div>
+<div class="field"><label>Catégorie</label><select id="fCat"><option>Numéros</option><option>Articles</option><option>CSR</option><option>Remorqueurs</option><option>Remisage / Saisie</option><option>Ressources</option><option>Autres</option></select></div>
+<div class="field"><label>Mots-clés (séparés par des virgules)</label><input id="fKeywords"></div>
+<div class="field"><label>Téléphone (facultatif)</label><input id="fPhone" inputmode="tel"></div>
+<div class="field"><label>Contenu / notes</label><textarea id="fBody"></textarea></div>
+<div class="field"><label>Source / URL (facultatif)</label><input id="fSource" inputmode="url"></div>
+<div class="modal-actions"><button class="btn" id="cancel">Annuler</button><button class="btn primary" id="save">Enregistrer</button></div>
+</div></dialog>
+
+
+<script src="data.js"></script>
+<script>
+const KEY="prq-data-v4";
+let data=JSON.parse(localStorage.getItem(KEY)||"null")||window.DEFAULT_DATA;
+let currentCat=null, editing=null, verifiedOnly=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function persist(){localStorage.setItem(KEY,JSON.stringify(data))}
+function phoneHref(p){return String(p||"").replace(/[^0-9+]/g,"")}
+function statusClass(v){v=String(v||"").toLowerCase();return v.includes("vérifié")||v.includes("source officielle")?"ok":v.includes("note")?"note":"warn"}
+function render(){
+ const q=$("search").value.trim().toLowerCase();
+ let arr=data.filter(x=>{
+   const hay=[x.title,x.cat,x.phone,x.body,x.verification,x.source,...(x.keywords||[])].join(" ").toLowerCase();
+   return (!currentCat||x.cat===currentCat)&&(!q||hay.includes(q))&&(!verifiedOnly||statusClass(x.verification)==="ok");
+ });
+ if(!q&&!currentCat&&!verifiedOnly) arr=arr.filter(x=>x.fav);
+ $("sectionTitle").textContent=q?`🔎 Résultats (${arr.length})`:verifiedOnly?`🟢 Vérifiés (${arr.length})`:currentCat?`${currentCat} (${arr.length})`:`⭐ Favoris (${arr.length})`;
+ if(!arr.length){$("results").innerHTML='<div class="empty">Aucun résultat.<br><br>Utilise la recherche ou ＋ pour ajouter une référence.</div>';return}
+ $("results").innerHTML=arr.map(x=>`<article class="item">
+ <div class="title">${x.fav?"⭐ ":""}${esc(x.title)}</div>
+ <div class="meta">${esc(x.cat)}${x.keywords?.length?" · "+esc(x.keywords.join(" · ")):""}</div>
+ <div><span class="status ${statusClass(x.verification)}">${esc(x.verification||"À vérifier")}</span></div>
+ ${x.body?`<div class="body">${esc(x.body)}</div>`:""}
+ <div class="actions">
+ ${x.phone?`<button class="btn primary" onclick="location.href='tel:${phoneHref(x.phone)}'">📞 Appeler</button>`:""}
+ ${x.source?`<button class="btn sourcebtn" onclick="openSource('${x.id}')">📚 Source</button>`:""}
+ <button class="btn" onclick="copyItem('${x.id}')">📋 Copier</button>
+ <button class="btn" onclick="toggleFav('${x.id}')">${x.fav?"★ Retirer favori":"☆ Favori"}</button>
+ <button class="btn" onclick="editItem('${x.id}')">✏️ Modifier</button>
+ <button class="btn danger" onclick="deleteItem('${x.id}')">Supprimer</button>
+ </div></article>`).join("");
+}
+function openSource(id){const x=data.find(y=>y.id===id); if(x?.source) window.open(x.source,"_blank","noopener")}
+function copyItem(id){
+ const x=data.find(y=>y.id===id);
+ navigator.clipboard?.writeText([x.title,x.phone,x.body,x.source].filter(Boolean).join("
+")).then(()=>alert("Copié."));
+}
+function toggleFav(id){let x=data.find(x=>x.id===id);x.fav=!x.fav;persist();render()}
+function deleteItem(id){if(confirm("Supprimer cette référence?")){data=data.filter(x=>x.id!==id);persist();render()}}
+function openForm(item=null){
+ editing=item?.id||null;
+ $("dlgTitle").textContent=item?"Modifier la référence":"Ajouter une référence";
+ $("fTitle").value=item?.title||"";$("fCat").value=item?.cat||"Autres";
+ $("fKeywords").value=(item?.keywords||[]).join(", ");$("fPhone").value=item?.phone||"";
+ $("fBody").value=item?.body||"";$("fSource").value=item?.source||"";$("dlg").showModal()
+}
+function editItem(id){openForm(data.find(x=>x.id===id))}
+$("save").onclick=()=>{
+ const old=editing&&data.find(x=>x.id===editing);
+ const obj={id:editing||Date.now().toString(),title:$("fTitle").value.trim(),cat:$("fCat").value,
+ keywords:$("fKeywords").value.split(",").map(x=>x.trim()).filter(Boolean),phone:$("fPhone").value.trim(),
+ body:$("fBody").value.trim(),source:$("fSource").value.trim(),verification:old?.verification||"Note personnelle",fav:old?.fav||false};
+ if(!obj.title){alert("Le titre est requis.");return}
+ editing?data=data.map(x=>x.id===editing?obj:x):data.push(obj);
+ persist();$("dlg").close();render()
+};
+$("cancel").onclick=()=>$("dlg").close();$("add").onclick=()=>openForm();
+$("search").oninput=()=>{currentCat=null;render()};
+document.querySelectorAll(".cat").forEach(b=>b.onclick=()=>{currentCat=b.dataset.cat;$("search").value="";verifiedOnly=false;render()});
+$("verified").onclick=()=>{verifiedOnly=true;currentCat=null;$("search").value="";render()};
+$("all").onclick=()=>{verifiedOnly=false;currentCat=null;$("search").value="";render()};
+$("reset").onclick=()=>{if(confirm("Réinitialiser vers la version V4 fournie? Cela efface tes modifications locales.")){data=JSON.parse(JSON.stringify(window.DEFAULT_DATA));persist();render()}};
+
+$("backup").onclick=()=>{
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Police_Reference_Quebec_sauvegarde.json";a.click();URL.revokeObjectURL(a.href);
+};
+$("restore").onclick=()=>$("file").click();
+$("file").onchange=e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ const r=new FileReader();r.onload=()=>{try{
+   const imported=JSON.parse(r.result);
+   if(!Array.isArray(imported))throw new Error();
+   data=imported;persist();render();alert("Importation réussie.");
+ }catch(err){alert("Fichier invalide.")}};
+ r.readAsText(f);e.target.value="";
+};
+
+if("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js");
+render();
+</script>
+
+</body></html>
