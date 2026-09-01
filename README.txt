@@ -1,4 +1,2 @@
-Police Référence Québec — version finale corrigée
-
-IMPORTANT : remplacer index.html ET service-worker.js dans GitHub.
-Les fichiers data.js, manifest.json et les deux icônes sont inclus pour avoir l'ensemble cohérent.
+Police Référence Québec — version stable + gestion des catégories.
+Ajout, renommage et suppression des catégories vides directement dans l’application.
