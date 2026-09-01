@@ -102,8 +102,7 @@ function render(){
 function openSource(id){const x=data.find(y=>y.id===id); if(x?.source) window.open(x.source,"_blank","noopener")}
 function copyItem(id){
  const x=data.find(y=>y.id===id);
- navigator.clipboard?.writeText([x.title,x.phone,x.body,x.source].filter(Boolean).join("
-")).then(()=>alert("Copié."));
+ navigator.clipboard?.writeText([x.title,x.phone,x.body,x.source].filter(Boolean).join("\n")).then(()=>alert("Copié."));
 }
 function toggleFav(id){let x=data.find(x=>x.id===id);x.fav=!x.fav;persist();render()}
 function deleteItem(id){if(confirm("Supprimer cette référence?")){data=data.filter(x=>x.id!==id);persist();render()}}
