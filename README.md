@@ -1,13 +1,9 @@
-# Police Référence Québec — V5 finale
+Police Référence Québec — V5.2 iPhone
 
-Cette version conserve les données de la V5 sauvegardée, incluant l'horaire déjà saisi,
-et ajoute les numéros des constructeurs automobiles ainsi qu'une référence vérifiée
-sur les permis canadiens/étrangers.
-
-## Mise à jour sans perdre l'horaire
-L'application stocke les modifications dans le stockage local du navigateur.
-Le bouton « Importer / Fusionner » permet aussi d'importer une sauvegarde JSON.
-
-## Source permis étrangers
-SAAQ — https://saaq.gouv.qc.ca/permis-conduire/permis-canadien-etranger
-Dernière vérification web : 2026-09-01.
+Version responsive : aucune navigation horizontale sur iPhone.
+- Références et Mon horaire seulement comme sections principales.
+- Sauvegarder en haut à droite.
+- 138 références conservées, dont constructeurs automobiles et permis étrangers.
+- Calendrier mensuel mobile avec Jour / Soir / Nuit / Congé.
+- Horaire répétitif sur plusieurs mois avec dates de début et de fin.
+- Même clé localStorage que V5 finale/V5.1 pour préserver les données locales déjà saisies.
