@@ -5,36 +5,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111111">
 <link rel="manifest" href="manifest.json">
-<title>Police Référence Québec — V5 finale</title>
+<title>Police Référence Québec — V5.1</title>
 <style>
 :root{--blue:#347ff0;--bg:#f5f5f7;--card:#fff;--text:#111;--muted:#68707c;--line:#e4e5e8;--black:#111}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-header{padding:22px 20px 10px;position:sticky;top:0;background:rgba(245,245,247,.96);backdrop-filter:blur(14px);z-index:5}
-.brand{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.brand h1{font-size:32px;line-height:1.05;margin:0;font-weight:800}.brand small{color:#68707c;font-size:18px;line-height:1.15;padding-top:4px}
-.search{margin-top:22px;background:white;border:1px solid #dddfe4;border-radius:24px;padding:14px 18px;display:flex;gap:10px;align-items:center}.search input{border:0;outline:0;width:100%;font-size:20px;background:transparent}
-.toolbar{display:flex;gap:10px;overflow:auto;padding:14px 0}.btn{border:1px solid #dfe2e7;background:white;color:var(--blue);font-weight:700;border-radius:16px;padding:12px 16px;white-space:nowrap;font-size:16px}.btn.black{background:#111;color:white;border-color:#111}.btn.danger{color:#c33}
+header{padding:18px 16px 10px;position:sticky;top:0;background:rgba(245,245,247,.96);backdrop-filter:blur(14px);z-index:5;max-width:100%;overflow-x:clip}
+.brand{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.brand h1{font-size:32px;line-height:1.05;margin:0;font-weight:800;min-width:0}.saveTop{flex:0 0 auto;margin-top:2px}.saveTop .btn{padding:10px 12px}.brand small{display:none}
+.search{margin-top:16px;background:white;border:1px solid #dddfe4;border-radius:24px;padding:14px 18px;display:flex;gap:10px;align-items:center}.search input{border:0;outline:0;width:100%;font-size:20px;background:transparent}
+.toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 0}.btn{border:1px solid #dfe2e7;background:white;color:var(--blue);font-weight:700;border-radius:16px;padding:12px 16px;white-space:normal;font-size:15px;min-width:0}.btn.black{background:#111;color:white;border-color:#111}.btn.danger{color:#c33}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tab{padding:15px;border-radius:18px;background:white;border:1px solid var(--line);font-size:18px;font-weight:800;color:var(--blue)}.tab.active{background:#111;color:white;border-color:#111}
-main{padding:10px 20px 80px}.notice{background:#fff;border:1px solid #d9dde3;border-radius:20px;padding:18px;margin:14px 0;font-size:16px;line-height:1.45}.notice strong{font-size:18px}.notice .source{margin-top:10px;color:#5f6670;font-size:13px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:white;border:1px solid #e6e7ea;border-radius:24px;padding:20px;min-height:150px;box-shadow:0 4px 14px rgba(0,0,0,.035)}.card h3{color:var(--blue);font-size:22px;margin:10px 0}.emoji{font-size:38px}
+main{padding:10px 16px 80px;max-width:100%;overflow-x:clip}.notice{background:#fff;border:1px solid #d9dde3;border-radius:20px;padding:18px;margin:14px 0;font-size:16px;line-height:1.45}.notice strong{font-size:18px}.notice .source{margin-top:10px;color:#5f6670;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:100%}.card{background:white;min-width:0;border:1px solid #e6e7ea;border-radius:24px;padding:20px;min-height:150px;box-shadow:0 4px 14px rgba(0,0,0,.035)}.card h3{color:var(--blue);font-size:22px;margin:10px 0}.emoji{font-size:38px}
 .section-title{font-size:28px;margin:28px 0 10px}.count{color:#666;font-weight:600}
 .list{display:grid;gap:10px}.ref{background:white;border:1px solid var(--line);border-radius:18px;padding:15px}.reftop{display:flex;justify-content:space-between;gap:12px}.ref h3{margin:0;font-size:18px}.ref .cat{font-size:12px;color:var(--muted);margin-top:5px}.phone{display:inline-block;color:var(--blue);font-size:18px;font-weight:800;text-decoration:none;margin-top:10px}.body{white-space:pre-line;color:#424850;margin-top:8px;line-height:1.4}.badge{font-size:11px;border:1px solid #dfe2e7;border-radius:10px;padding:4px 7px;color:#5c6470;white-space:nowrap;height:max-content}
 .fab{position:fixed;right:22px;bottom:24px;width:64px;height:64px;border-radius:50%;background:#111;color:#fff;border:0;font-size:36px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:10}
 .hidden{display:none!important}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:flex;align-items:flex-end;justify-content:center;z-index:20}.sheet{background:white;border-radius:28px 28px 0 0;width:min(760px,100%);max-height:92vh;overflow:auto;padding:22px}.sheet h2{margin-top:0}.form{display:grid;gap:12px}.form label{font-weight:800}.form input,.form textarea,.form select{width:100%;padding:13px;border:1px solid #d9dde3;border-radius:14px;font-size:16px}.form textarea{min-height:110px}.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
-.calendar-controls{display:flex;justify-content:space-between;align-items:center;margin:12px 0}.month{font-size:24px;font-weight:800}.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{text-align:center;color:#777;font-size:12px;padding:5px}.day{min-height:76px;background:white;border:1px solid #e4e6e9;border-radius:12px;padding:6px;font-size:12px;position:relative}.day.muted{opacity:.35}.day .num{font-weight:800}.shift{margin-top:5px;border-radius:8px;padding:5px;font-weight:800;line-height:1.15;font-size:11px}.jour{background:#eaf2ff;color:#185bb5}.soir{background:#f0ebff;color:#6335a6}.nuit{background:#e8e9ed;color:#252933}.conge{background:#f2f2f2;color:#777}.note-dot{position:absolute;right:6px;top:6px;width:6px;height:6px;background:#111;border-radius:50%}
-.pattern-box{background:white;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:16px}.pattern-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}.pattern-row select,.pattern-row input{padding:10px;border:1px solid #ddd;border-radius:10px}
-@media(max-width:520px){.brand h1{font-size:28px}.brand small{font-size:15px}.grid{gap:10px}.card{padding:16px;min-height:130px}.card h3{font-size:19px}.day{min-height:68px}.shift{font-size:10px}}
+.calendar-controls{display:flex;gap:8px;justify-content:space-between;align-items:center;margin:12px 0}.month{font-size:24px;font-weight:800}.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;max-width:100%}.dow{text-align:center;color:#777;font-size:12px;padding:5px}.day{min-height:76px;background:white;border:1px solid #e4e6e9;border-radius:12px;padding:6px;font-size:12px;position:relative}.day.muted{opacity:.35}.day .num{font-weight:800}.shift{margin-top:5px;border-radius:8px;padding:5px;font-weight:800;line-height:1.15;font-size:11px}.jour{background:#eaf2ff;color:#185bb5}.soir{background:#f0ebff;color:#6335a6}.nuit{background:#e8e9ed;color:#252933}.conge{background:#f2f2f2;color:#777}.note-dot{position:absolute;right:6px;top:6px;width:6px;height:6px;background:#111;border-radius:50%}
+.pattern-box{background:white;border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:16px}.pattern-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:8px;margin:8px 0}.pattern-row select,.pattern-row input{padding:10px;border:1px solid #ddd;border-radius:10px}
+@media(max-width:520px){.brand h1{font-size:27px}.search input{font-size:18px}.toolbar .btn{font-size:14px;padding:11px 9px}.tabs{gap:8px}.tab{font-size:16px;padding:13px 8px}.grid{grid-template-columns:1fr 1fr}.card h3{overflow-wrap:anywhere}.ref{min-width:0}.reftop{min-width:0}.ref h3{overflow-wrap:anywhere}.phone{overflow-wrap:anywhere}.body{overflow-wrap:anywhere}.sheet{max-width:100vw}.pattern-row{grid-template-columns:1fr 1fr}.pattern-row select,.pattern-row input{min-width:0;width:100%}.actions{flex-wrap:wrap}.actions .btn{flex:1 1 auto}.brand h1{font-size:28px}.brand small{font-size:15px}.grid{gap:10px}.card{padding:16px;min-height:130px}.card h3{font-size:19px}.day{min-height:68px}.shift{font-size:10px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand"><h1>🚓 Police Référence<br>Québec</h1><small>V5 finale ·<br>référence + horaire</small></div>
+  <div class="brand"><h1>🚓 Police Référence<br>Québec</h1><div class="saveTop"><button class="btn" id="saveBtn">💾 Sauvegarder</button></div></div>
   <div class="search">🔎 <input id="search" placeholder="Rechercher article, numéro, mot-clé..." autocomplete="off"></div>
   <div class="toolbar">
     <button class="btn" id="verifiedBtn">🟢 Vérifiés</button>
     <button class="btn" id="allBtn">📚 Tout</button>
-    <button class="btn" id="saveBtn">💾 Sauvegarder</button>
-    <button class="btn" id="importBtn">↩️ Importer / fusionner</button>
+    <button class="btn" id="importBtn">↩️ Importer</button>
   </div>
   <div class="tabs">
     <button class="tab active" id="refsTab">🚓 Références</button>
@@ -237,8 +236,8 @@ addPatternRowBtn=addPatternRow;addPatternRowButton=document.getElementById('addP
 applyPattern.onclick=applyPattern;
 saveBtn.onclick=()=>{
   persist();
-  const blob=new Blob([JSON.stringify({version:'V5 finale',references:state.references,calendar:state.calendar,pattern:state.pattern},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Police_Reference_Quebec_V5_finale_sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  const blob=new Blob([JSON.stringify({version:'V5.1',references:state.references,calendar:state.calendar,pattern:state.pattern},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Police_Reference_Quebec_V5.1_sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
 };
 importBtn.onclick=()=>fileInput.click();
 fileInput.onchange=async e=>{
@@ -246,6 +245,7 @@ fileInput.onchange=async e=>{
   try{
     const incoming=JSON.parse(await f.text());
     if(incoming.calendar)state.calendar={...state.calendar,...incoming.calendar};
+    if(incoming.pattern)state.pattern=incoming.pattern;
     if(Array.isArray(incoming.references)){
       incoming.references.forEach(r=>{
         const i=state.references.findIndex(x=>x.id===r.id);

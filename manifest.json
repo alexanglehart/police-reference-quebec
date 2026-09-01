@@ -1,7 +1,7 @@
 {
   "name": "Police Référence Québec",
   "short_name": "Police Référence",
-  "description": "Outil personnel de référence policière au Québec.",
+  "description": "Références personnelles et horaire de travail",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f5f7",
