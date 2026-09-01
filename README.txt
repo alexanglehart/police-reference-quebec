@@ -1,23 +1,19 @@
-POLICE RÉFÉRENCE QUÉBEC — V4
+Police Référence Québec — V5
 
-V4 ajoute :
-- recherche rapide;
-- favoris;
-- filtres « Vérifiés » / « Tout »;
-- bouton Source pour les fiches ayant une source;
-- sauvegarde locale en JSON;
-- importation d'une sauvegarde;
-- modification et ajout de fiches;
-- fonctionnement hors ligne après la première ouverture sur un hébergement HTTPS compatible PWA.
+Contenu :
+- Toutes les références V4 conservées
+- 23 nouvelles références de repérage / urgence des constructeurs fournies par l'utilisateur
+- Recherche, favoris, catégories, modification, suppression, sauvegarde/import
+- Calendrier personnel
+- Quarts : Jour, Soir, Nuit, Congé, Autre
+- Séquence répétitive générée automatiquement sur 3, 6, 12 ou 24 mois
+- Modification d'une journée directement dans le calendrier
+- Migration automatique des données locales V4 vers V5 sur le même domaine
 
-IMPORTANT :
-Les fiches « Vérifié » ont été comparées aux sources officielles retrouvées lors de cette version. Les fiches « À vérifier » demeurent des notes de travail. Le CSR officiel repéré dans cette passe est indiqué « À jour au 1er janvier 2026 ». Vérifier la version en vigueur et les directives du service avant toute utilisation opérationnelle.
+Installation GitHub Pages :
+1. Remplacer les fichiers du dépôt par ceux de ce dossier.
+2. Garder les noms : index.html, data.js, manifest.json, service-worker.js, icon-180.png, icon-512.png.
+3. Ouvrir l'adresse GitHub Pages dans Safari.
+4. Partager > Sur l'écran d'accueil > Ajouter.
 
-INSTALLATION IPHONE :
-1. Héberger le dossier sur une adresse HTTPS.
-2. Ouvrir cette adresse dans Safari.
-3. Partager > Sur l’écran d’accueil.
-4. Activer « Ouvrir comme app web » > Ajouter.
-
-MODIFICATIONS :
-Les modifications faites sur un téléphone sont locales à ce téléphone. Pour partager une base commune, remplacer les fichiers du site par une nouvelle version ou prévoir une vraie base de données/compte dans une prochaine version.
+- Nouvelle section vérifiée SAAQ : permis canadiens/étrangers, nouveaux résidents, étudiants/stagiaires, classe appropriée et permis international.
