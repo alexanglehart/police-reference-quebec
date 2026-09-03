@@ -1,21 +1,6 @@
 window.APP_DATA = {
-  "version": "V5.3-categories-resources-v1",
+  "version": "V5.3-categories",
   "references": [
-    {
-      "title": "Centrale téléphonique des remorqueurs de Repentigny",
-      "cat": "Remorqueurs",
-      "keywords": [
-        "centrale",
-        "remorqueurs",
-        "Repentigny"
-      ],
-      "phone": "514-740-9900",
-      "body": "Centrale téléphonique des remorqueurs de Repentigny.",
-      "id": "1",
-      "fav": false,
-      "verification": "À vérifier",
-      "source": ""
-    },
     {
       "title": "3 Étoiles (#60012)",
       "cat": "Remorqueurs",
@@ -866,7 +851,7 @@ window.APP_DATA = {
       "source": "https://www.legisquebec.gouv.qc.ca/fr/version/lc/c-24.2?code=se%3A359_1&historique=20250918"
     },
     {
-      "title": "-861 — Feu jaune",
+      "title": "-361  — Feu jaune",
       "cat": "CSR",
       "keywords": [
         "861",
@@ -1589,55 +1574,6 @@ window.APP_DATA = {
       "source": "https://saaq.gouv.qc.ca/permis-conduire/saisie-vehicule-reprise-possession"
     },
     {
-      "id": "v3-remisage-apprenti",
-      "title": "REMISAGE — Infraction liée au permis d’apprenti",
-      "cat": "Remisage / Saisie",
-      "keywords": [
-        "remisage",
-        "apprenti",
-        "conduire seul",
-        "accompagnateur",
-        "2 ans",
-        "article 99"
-      ],
-      "phone": "",
-      "body": "Art. 99 : le titulaire d’un permis d’apprenti-conducteur doit être assisté par une personne titulaire depuis au moins 2 ans d’un permis valide de la classe appropriée. La mesure précise de remisage doit être confirmée selon la disposition de sanction applicable.",
-      "fav": false,
-      "verification": "Art. 99 vérifié — mesure à confirmer",
-      "source": "https://www.legisquebec.gouv.qc.ca/fr/version/lc/C-24.2?code=se%3A99&historique=20191128"
-    },
-    {
-      "id": "v3-remisage-assurance",
-      "title": "REMISAGE — Véhicule non assuré",
-      "cat": "Remisage / Saisie",
-      "keywords": [
-        "remisage",
-        "non assuré",
-        "assurance",
-        "véhicule"
-      ],
-      "phone": "",
-      "body": "Des sources SAAQ/SQ indiquent qu’un véhicule non assuré peut perdre son droit de circuler et qu’un remisage peut être effectué. La disposition précise doit être confirmée selon la situation.",
-      "fav": false,
-      "verification": "Appuyé par sources SAAQ/SQ — disposition à confirmer",
-      "source": "https://saaq.gouv.qc.ca/immatriculation/immatriculer-vehicule/automobile-habitation-motorisee/immatriculer-automobile-habitation-motorisee-vendue-entre-particulier"
-    },
-    {
-      "id": "v3-remisage-interdit",
-      "title": "REMISAGE — Véhicule interdit de circuler + permis valide",
-      "cat": "Remisage / Saisie",
-      "keywords": [
-        "remisage",
-        "véhicule interdit",
-        "permis valide"
-      ],
-      "phone": "",
-      "body": "Règle opérationnelle fournie par l’utilisateur : si le véhicule n’a pas le droit de circuler et que le conducteur a un permis valide → REMISAGE. À confirmer selon le motif précis de l’interdiction et la disposition applicable.",
-      "fav": false,
-      "verification": "À confirmer selon le motif précis",
-      "source": ""
-    },
-    {
       "id": "v4-saaq-revoke-points",
       "title": "Saisie 30 jours — permis révoqué pour points d’inaptitude",
       "cat": "Remisage / Saisie",
@@ -2195,20 +2131,6 @@ window.APP_DATA = {
       "phone": "450-654-9703",
       "body": "Aide alimentaire.",
       "id": "res-147",
-      "fav": false,
-      "verification": "À vérifier",
-      "source": ""
-    },
-    {
-      "title": "Frigos verts",
-      "cat": "Ressources",
-      "keywords": [
-        "frigos",
-        "verts"
-      ],
-      "phone": "",
-      "body": "Lieux assujettis à changement. Sites indiqués sur la photo : Centre Laurent-Venne; Complexe sportif Gilles-Tremblay; Centre aquatique Jacques-Dupuis; Carrefour Jeunesse-emploi L’Assomption (fermé); Maison de la Famille – La Parenthèse; Chalet du Parc de l’Île-Lebel.",
-      "id": "res-148",
       "fav": false,
       "verification": "À vérifier",
       "source": ""
@@ -5635,5 +5557,44 @@ window.APP_DATA = {
       "start": "",
       "end": ""
     }
-  ]
+  ],
+  "categories": [
+    {
+      "name": "Numéros",
+      "emoji": "📞"
+    },
+    {
+      "name": "Articles",
+      "emoji": "⚖️"
+    },
+    {
+      "name": "CSR",
+      "emoji": "🚗"
+    },
+    {
+      "name": "Remorqueurs",
+      "emoji": "🚨"
+    },
+    {
+      "name": "Remisage / Saisie",
+      "emoji": "🚧"
+    },
+    {
+      "name": "Ressources",
+      "emoji": "🏥"
+    },
+    {
+      "name": "Autres",
+      "emoji": "📋"
+    },
+    {
+      "name": "Constructeurs automobiles",
+      "emoji": "🚘"
+    },
+    {
+      "name": "Permis étrangers",
+      "emoji": "🪪"
+    }
+  ],
+  "notes": []
 };
